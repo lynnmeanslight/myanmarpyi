@@ -82,6 +82,7 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [lastPinchDistance, setLastPinchDistance] = useState<number | null>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const handleRegionClick = (region: Region) => {
@@ -121,6 +122,54 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
 
   const handleMouseUp = () => {
     setIsDragging(false);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 1) {
+      // Single finger - pan
+      setIsDragging(true);
+      setDragStart({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y,
+      });
+    } else if (e.touches.length === 2) {
+      // Two fingers - pinch to zoom
+      setIsDragging(false);
+      const distance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      setLastPinchDistance(distance);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 1 && isDragging) {
+      // Single finger - pan
+      setPosition({
+        x: e.touches[0].clientX - dragStart.x,
+        y: e.touches[0].clientY - dragStart.y,
+      });
+    } else if (e.touches.length === 2) {
+      // Two fingers - pinch to zoom
+      const distance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      
+      if (lastPinchDistance) {
+        const delta = (distance - lastPinchDistance) * 0.01;
+        const newScale = Math.min(Math.max(0.5, scale + delta), 3);
+        setScale(newScale);
+      }
+      
+      setLastPinchDistance(distance);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    setLastPinchDistance(null);
   };
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {

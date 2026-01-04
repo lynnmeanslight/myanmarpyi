@@ -462,19 +462,19 @@ function App() {
   };
 
   return (
-    <div className="relative h-screen bg-white overflow-hidden">
+    <div className="relative min-h-screen bg-white overflow-x-hidden">
       <main
-        className={`relative w-full px-4 sm:px-6 lg:px-8 py-4 h-full flex flex-col gap-3 transition-opacity duration-500 ease-out ${
+        className={`relative w-full px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 min-h-screen flex flex-col gap-2 sm:gap-3 transition-opacity duration-500 ease-out ${
           showContent ? "opacity-100" : "opacity-0"
         }`}
       >
         {/* Hero section */}
-        <section className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
+        <section className="flex flex-col items-center gap-1.5 sm:gap-2 text-center px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
             {t("title")}
           </h1>
 
-          <p className="mx-auto my-5 max-w-2xl text-sm sm:text-base text-gray-600 leading-relaxed px-4">
+          <p className="mx-auto my-5 max-w-2xl text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed px-2 sm:px-4">
             {t("subtitle")}
           </p>
 
@@ -484,30 +484,30 @@ function App() {
                 const connector = connect.connectors[0];
                 if (connector) connect.mutate({ connector });
               }}
-              className="px-6 py-2 bg-rose-500 text-white text-sm font-medium rounded-lg hover:bg-rose-600 transition-colors duration-200 shadow-sm hover:shadow"
+              className="px-5 sm:px-6 py-2 sm:py-2.5 bg-rose-500 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-rose-600 active:scale-95 transition-all duration-200 shadow-sm hover:shadow touch-manipulation"
             >
               {t("connectButton")}
             </button>
           )}
 
           {/* Language toggle */}
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3">
             <button
               onClick={() => setLanguage("en")}
-              className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 touch-manipulation ${
                 language === "en"
                   ? "bg-rose-500 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 active:bg-gray-300"
               }`}
             >
               English
             </button>
             <button
               onClick={() => setLanguage("my")}
-              className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 touch-manipulation ${
                 language === "my"
                   ? "bg-rose-500 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 active:bg-gray-300"
               }`}
             >
               မြန်မာ
@@ -517,28 +517,28 @@ function App() {
 
         {/* Statistics Section */}
         {isConnected && (
-          <section className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-4xl mx-auto w-full">
-            <div className="rounded-lg border border-sky-200 bg-gradient-to-br from-sky-50 to-sky-100 p-2 text-center shadow-sm hover:shadow transition-shadow">
-              <div className="text-xl font-bold text-sky-600 mb-0.5">
+          <section className="grid grid-cols-3 gap-1.5 sm:gap-2 max-w-4xl mx-auto w-full px-2">
+            <div className="rounded-lg border border-sky-200 bg-gradient-to-br from-sky-50 to-sky-100 p-1.5 sm:p-2 text-center shadow-sm hover:shadow transition-shadow">
+              <div className="text-lg sm:text-xl font-bold text-sky-600 mb-0.5">
                 {totalStats.users}
               </div>
-              <div className="text-[10px] font-medium text-sky-700">
+              <div className="text-[9px] sm:text-[10px] font-medium text-sky-700 leading-tight">
                 {t("totalUsers")}
               </div>
             </div>
-            <div className="rounded-lg border border-emerald-200 bg-gradient-to-br from-emerald-50 to-emerald-100 p-2 text-center shadow-sm hover:shadow transition-shadow">
-              <div className="text-xl font-bold text-emerald-600 mb-0.5">
+            <div className="rounded-lg border border-emerald-200 bg-gradient-to-br from-emerald-50 to-emerald-100 p-1.5 sm:p-2 text-center shadow-sm hover:shadow transition-shadow">
+              <div className="text-lg sm:text-xl font-bold text-emerald-600 mb-0.5">
                 {totalStats.messages}
               </div>
-              <div className="text-[10px] font-medium text-emerald-700">
+              <div className="text-[9px] sm:text-[10px] font-medium text-emerald-700 leading-tight">
                 {t("totalMessages")}
               </div>
             </div>
-            <div className="rounded-lg border border-violet-200 bg-gradient-to-br from-violet-50 to-violet-100 p-2 text-center shadow-sm hover:shadow transition-shadow">
-              <div className="text-xl font-bold text-violet-600 mb-0.5">
+            <div className="rounded-lg border border-violet-200 bg-gradient-to-br from-violet-50 to-violet-100 p-1.5 sm:p-2 text-center shadow-sm hover:shadow transition-shadow">
+              <div className="text-lg sm:text-xl font-bold text-violet-600 mb-0.5">
                 {totalStats.emojis}
               </div>
-              <div className="text-[10px] font-medium text-violet-700">
+              <div className="text-[9px] sm:text-[10px] font-medium text-violet-700 leading-tight">
                 {t("totalEmojis")}
               </div>
             </div>
@@ -546,18 +546,18 @@ function App() {
         )}
 
         {/* Main content grid */}
-        <div className="grid gap-4 lg:grid-cols-2 flex-1 min-h-0 w-full">
+        <div className="grid gap-3 sm:gap-4 lg:grid-cols-2 flex-1 min-h-0 w-full">
           {/* Auth card - only shown when not connected */}
           {account.status !== "connected" && (
-            <section className="rounded-xl border border-gray-200 bg-gray-50 p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+            <section className="rounded-xl border border-gray-200 bg-gray-50 p-4 sm:p-6 md:p-8 shadow-sm">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
                 {t("welcome")}
               </h2>
-              <p className="text-base text-gray-600 leading-relaxed mb-8">
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6 sm:mb-8">
                 {t("welcomeMessage")}
               </p>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2 sm:gap-3">
                 {connect.connectors.map((connector) =>
                   connector.name === "Base Account" ? (
                     <div key={connector.uid} className="w-full">
@@ -631,15 +631,15 @@ function App() {
                     : "opacity-50"
                 }`}
               >
-                <div className="grid gap-4 lg:grid-cols-[2fr_1fr] flex-1 min-h-0">
+                <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_1fr] gap-3 sm:gap-4 flex-1 min-h-0 max-h-[600px] lg:max-h-[550px]">
                   {/* Map panel */}
-                  <div className="rounded-lg border border-gray-200 bg-gray-50 h-full min-h-0 shadow-sm">
-                    <div className="flex h-full flex-col p-3 min-h-0">
-                      <div className="mb-2">
-                        <h3 className="text-xs font-semibold text-gray-900 mb-0.5">
+                  <div className="rounded-lg border border-gray-200 bg-gray-50 h-64 sm:h-80 lg:h-full min-h-0 shadow-sm">
+                    <div className="flex h-full flex-col p-2 sm:p-3 min-h-0">
+                      <div className="mb-1.5 sm:mb-2">
+                        <h3 className="text-[10px] sm:text-xs font-semibold text-gray-900 mb-0.5">
                           {t("selectRegion")}
                         </h3>
-                        <p className="text-[10px] text-gray-500">
+                        <p className="text-[9px] sm:text-[10px] text-gray-500">
                           {REGIONS.find((r) => r.id === selectedRegionId)
                             ?.name || t("noSelection")}
                         </p>
@@ -657,8 +657,8 @@ function App() {
                           />
                         ) : (
                           <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-400">
-                            <span className="text-3xl">🗺️</span>
-                            <p className="text-sm">{t("connectToView")}</p>
+                            <span className="text-2xl sm:text-3xl">🗺️</span>
+                            <p className="text-xs sm:text-sm">{t("connectToView")}</p>
                           </div>
                         )}
                       </div>
@@ -666,8 +666,8 @@ function App() {
                   </div>
 
                   {/* Messages panel */}
-                  <div className="rounded-lg border border-gray-200 bg-gray-50 h-full min-h-0 shadow-sm">
-                    <div className="flex h-full flex-col p-3 min-h-0">
+                  <div className="rounded-lg border border-gray-200 bg-gray-50 flex-1 lg:h-full min-h-0 shadow-sm">
+                    <div className="flex h-full flex-col p-2 sm:p-3 min-h-0">
                       <div className="mb-2">
                         <h3 className="text-xs font-semibold text-gray-900 mb-0.5">
                           {t("storiesFromRegion")}
@@ -714,20 +714,20 @@ function App() {
 
                         return (
                           <div
-                            className={`mb-2 rounded-xl border-2 ${borderColor} bg-white p-2.5 shadow-sm hover:${borderColor} transition-colors`}
+                            className={`mb-2 rounded-xl border-2 ${borderColor} bg-white p-2 sm:p-2.5 shadow-sm hover:${borderColor} transition-colors`}
                           >
                             <textarea
                               value={messageText}
                               onChange={(e) => setMessageText(e.target.value)}
                               placeholder={t("sharePrompt")}
-                              className="w-full resize-none border-0 bg-transparent px-0 py-1 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+                              className="w-full resize-none border-0 bg-transparent px-0 py-1 text-xs sm:text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0 touch-manipulation"
                               rows={2}
                               disabled={
                                 !isConnected || !contractReady || isPosting
                               }
                               maxLength={200}
                             />
-                            <div className="flex items-center justify-between text-[11px] pt-2">
+                            <div className="flex items-center justify-between text-[10px] sm:text-[11px] pt-1.5 sm:pt-2">
                               <span
                                 className={`font-medium ${
                                   messageText.length > 180
@@ -737,13 +737,13 @@ function App() {
                                     : "text-gray-400"
                                 }`}
                               >
-                                {messageText.length}/200 {t("characterCount")}
+                                {messageText.length}/200
                               </span>
-                              <span className="text-gray-400">
+                              <span className="text-gray-400 hidden sm:inline">
                                 {t("cooldownInfo")}
                               </span>
                             </div>
-                            <div className="mt-2 pt-2 border-t border-gray-100">
+                            <div className="mt-1.5 sm:mt-2 pt-1.5 sm:pt-2 border-t border-gray-100">
                               <button
                                 type="button"
                                 onClick={handlePost}
@@ -756,7 +756,7 @@ function App() {
                                   messageText.length > 200 ||
                                   regionNumber === 0
                                 }
-                                className={`w-full px-4 py-2.5 ${bgColor} text-white text-sm font-medium rounded-lg ${hoverBgColor} active:scale-98 transition-all duration-200 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow`}
+                                className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 ${bgColor} text-white text-xs sm:text-sm font-medium rounded-lg ${hoverBgColor} active:scale-95 transition-all duration-200 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed shadow-sm hover:shadow touch-manipulation`}
                               >
                                 {isPosting ? (
                                   <span className="flex items-center justify-center gap-2">
@@ -813,26 +813,26 @@ function App() {
                           )}
 
                         {!messagesLoading && messagesData && (
-                          <ul className="space-y-2.5">
+                          <ul className="space-y-2 sm:space-y-2.5">
                             {(messagesData as RegionNote[]).map((m, idx) => (
                               <li
                                 key={idx}
-                                className="group relative p-3.5 bg-gradient-to-br from-white to-gray-50 rounded-lg border-2 border-gray-200 hover:border-gray-400 shadow-sm hover:shadow-lg transition-all duration-200"
+                                className="group relative p-2.5 sm:p-3.5 bg-gradient-to-br from-white to-gray-50 rounded-lg border-2 border-gray-200 hover:border-gray-400 active:border-gray-500 shadow-sm hover:shadow-lg transition-all duration-200"
                               >
                                 {/* Header */}
-                                <div className="mb-2.5 flex items-center justify-between">
-                                  <div className="flex items-center gap-2">
-                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-rose-400 to-rose-500 flex items-center justify-center text-white text-[11px] font-bold shadow-sm">
+                                <div className="mb-2 sm:mb-2.5 flex items-center justify-between">
+                                  <div className="flex items-center gap-1.5 sm:gap-2">
+                                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-rose-400 to-rose-500 flex items-center justify-center text-white text-[10px] sm:text-[11px] font-bold shadow-sm">
                                       {m.author.slice(2, 4).toUpperCase()}
                                     </div>
-                                    <span className="font-mono text-[10px] text-gray-600 bg-gray-100 px-2 py-0.5 rounded">
+                                    <span className="font-mono text-[9px] sm:text-[10px] text-gray-600 bg-gray-100 px-1.5 sm:px-2 py-0.5 rounded">
                                       {`${m.author.slice(
                                         0,
                                         4
                                       )}...${m.author.slice(-3)}`}
                                     </span>
                                   </div>
-                                  <span className="text-[10px] text-gray-400">
+                                  <span className="text-[9px] sm:text-[10px] text-gray-400">
                                     {new Date(
                                       Number(m.timestamp) * 1000
                                     ).toLocaleString()}
@@ -841,7 +841,7 @@ function App() {
 
                                 {/* Message text */}
                                 <p
-                                  className={`text-sm leading-relaxed mb-2.5 pl-9 ${
+                                  className={`text-xs sm:text-sm leading-relaxed mb-2 sm:mb-2.5 pl-7 sm:pl-9 ${
                                     m.hidden
                                       ? "text-gray-400 line-through"
                                       : "text-gray-800"
@@ -851,7 +851,7 @@ function App() {
                                 </p>
 
                                 {/* Reaction buttons */}
-                                <div className="flex flex-wrap gap-1.5 pl-9">
+                                <div className="flex flex-wrap gap-1 sm:gap-1.5 pl-7 sm:pl-9">
                                   {Object.entries(EMOJI_ICONS).map(
                                     ([emojiValue, icon]) => {
                                       const emojiNum = parseInt(emojiValue);
@@ -867,17 +867,17 @@ function App() {
                                           disabled={
                                             !isConnected || !contractReady
                                           }
-                                          className={`inline-flex items-center gap-1 px-1.5 py-1 text-xs rounded-full transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed ${
+                                          className={`inline-flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-1 sm:py-1.5 text-xs rounded-full transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 touch-manipulation ${
                                             hasCount
-                                              ? "bg-rose-50 border border-rose-200 hover:border-rose-300 hover:bg-rose-100"
-                                              : "bg-gray-50 border border-gray-200 hover:border-rose-200 hover:bg-rose-50"
+                                              ? "bg-rose-50 border border-rose-200 hover:border-rose-300 hover:bg-rose-100 active:bg-rose-200"
+                                              : "bg-gray-50 border border-gray-200 hover:border-rose-200 hover:bg-rose-50 active:bg-rose-100"
                                           }`}
                                         >
-                                          <span className="text-sm leading-none">
+                                          <span className="text-xs sm:text-sm leading-none">
                                             {icon}
                                           </span>
                                           {hasCount && (
-                                            <span className="text-[10px] font-bold text-rose-600 min-w-3 text-center">
+                                            <span className="text-[9px] sm:text-[10px] font-bold text-rose-600 min-w-2 sm:min-w-3 text-center">
                                               {count}
                                             </span>
                                           )}
@@ -921,7 +921,7 @@ function App() {
                 </a>
                 <span>•</span>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/lynnmeanslight/myanmarpyi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-gray-700 transition-colors duration-200"
