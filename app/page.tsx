@@ -307,7 +307,6 @@ function App() {
     abi: MyanmarPyiABI,
     eventName: "MessagePosted",
     onLogs(logs) {
-      console.log("MessagePosted event detected:", logs);
       // Refetch messages when a new message is posted
       refetchMessages();
       // Refetch all region counts for map badges
@@ -324,7 +323,6 @@ function App() {
     abi: MyanmarPyiABI,
     eventName: "EmojiReacted",
     onLogs(logs) {
-      console.log("EmojiReacted event detected:", logs);
       // Refetch emoji counts when a reaction is added
       fetchEmojiCounts();
       // Also refetch total stats since emoji count changed
@@ -424,8 +422,6 @@ function App() {
 
   const handleReaction = async (messageIndex: number, emoji: number) => {
     if (!isConnected || !contractReady) return;
-    console.log(messageIndex);
-    console.log(emoji);
 
     const calls = [
       {
@@ -658,7 +654,9 @@ function App() {
                         ) : (
                           <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-400">
                             <span className="text-2xl sm:text-3xl">🗺️</span>
-                            <p className="text-xs sm:text-sm">{t("connectToView")}</p>
+                            <p className="text-xs sm:text-sm">
+                              {t("connectToView")}
+                            </p>
                           </div>
                         )}
                       </div>

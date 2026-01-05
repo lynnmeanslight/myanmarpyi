@@ -24,8 +24,7 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
       const clientNonce =
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15);
-      console.log("clientNonce", clientNonce);
-      
+
       // Connect with SIWE to get signature, message, and address
       // This wallet_connect request will trigger the connection AND update wagmi's state
       const accounts = await (provider as any).request({
@@ -51,7 +50,7 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
         accounts.accounts[0].capabilities.signInWithEthereum.signature;
       const message =
         accounts.accounts[0].capabilities.signInWithEthereum.message;
-      
+
       // Verify the signature on the backend
       const verifyResponse = await fetch("/api/auth/verify", {
         method: "POST",
@@ -94,4 +93,3 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
     </div>
   );
 }
-

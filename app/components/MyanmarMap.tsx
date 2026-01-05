@@ -188,7 +188,10 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
       onWheel={handleWheel}
-      style={{ overflow: 'hidden', position: 'relative' }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      style={{ overflow: 'hidden', position: 'relative', touchAction: 'none' }}
     >
       <svg
         viewBox={MAP_CONFIG.viewBox}
@@ -256,24 +259,6 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
         </g>
       </svg>
 
-      {/* Tooltip */}
-      {hoveredRegion && (
-        <div className="absolute bottom-4 left-4 bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-          {REGIONS.find((r) => r.id === hoveredRegion) && (
-            <>
-              <h3 className="font-semibold text-gray-900 text-sm">
-                {REGIONS.find((r) => r.id === hoveredRegion)?.name}
-              </h3>
-              <p className="text-xs text-gray-600 mt-0.5">
-                {REGIONS.find((r) => r.id === hoveredRegion)?.burmeseName}
-              </p>
-              <p className="text-xs text-gray-500 mt-1">
-                {REGIONS.find((r) => r.id === hoveredRegion)?.type}
-              </p>
-            </>
-          )}
-        </div>
-      )}
 
       {/* Selected Region Info Badge */}
       {selectedRegionId && (() => {
@@ -283,21 +268,21 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
         const borderColor = selectedRegion ? getBorderColor(selectedRegion.colorClass) : 'border-rose-100';
         
         return (
-          <div className={`absolute top-2 right-2 w-36 bg-white rounded-lg shadow-md border ${borderColor} overflow-hidden transition-all duration-300 ease-out animate-in slide-in-from-top-2 fade-in`}>
-            <div className={`bg-gradient-to-r ${gradientColors} px-2 py-1.5 h-14 flex flex-col justify-center`}>
-              <h3 className="text-xs font-bold text-white leading-tight truncate">
+          <div className={`absolute top-1 sm:top-2 right-1 sm:right-2 w-28 sm:w-36 bg-white rounded-md sm:rounded-lg shadow-md border ${borderColor} overflow-hidden transition-all duration-300 ease-out animate-in slide-in-from-top-2 fade-in`}>
+            <div className={`bg-gradient-to-r ${gradientColors} px-1.5 sm:px-2 py-1 sm:py-1.5 h-10 sm:h-14 flex flex-col justify-center`}>
+              <h3 className="text-[10px] sm:text-xs font-bold text-white leading-tight truncate">
                 {selectedRegion?.name}
               </h3>
-              <p className="text-[10px] text-white opacity-90 truncate">
+              <p className="text-[8px] sm:text-[10px] text-white opacity-90 truncate">
                 {selectedRegion?.burmeseName}
               </p>
             </div>
-            <div className="px-2 py-2 bg-white h-12 flex items-center">
+            <div className="px-1.5 sm:px-2 py-1.5 sm:py-2 bg-white h-9 sm:h-12 flex items-center">
               <div className="flex-1">
-                <p className={`text-lg font-bold ${textColor} leading-none`}>
+                <p className={`text-sm sm:text-lg font-bold ${textColor} leading-none`}>
                   {messageCounts[selectedRegionId] || 0}
                 </p>
-                <p className="text-[10px] text-gray-500 font-medium mt-0.5">
+                <p className="text-[8px] sm:text-[10px] text-gray-500 font-medium mt-0.5">
                   {messageCounts[selectedRegionId] === 1
                     ? "message"
                     : "messages"}

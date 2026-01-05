@@ -6,6 +6,7 @@ import { getConfig } from "./wagmiProvider";
 import { headers } from "next/headers";
 import { Providers } from "./providers";
 import { ReactNode } from "react";
+import { ErudaProvider } from "./components/ErudaProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,7 +85,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
-    const initialState = cookieToInitialState(
+  const initialState = cookieToInitialState(
     getConfig(),
     (await headers()).get('cookie'),
   )
@@ -104,6 +105,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ErudaProvider />
         <Providers initialState={initialState}>{props.children}</Providers>
       </body>
     </html>
