@@ -7,6 +7,7 @@ import { headers } from "next/headers";
 import { Providers } from "./providers";
 import { ReactNode } from "react";
 import { ErudaProvider } from "./components/ErudaProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +21,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Myanmar Pyi - Spread Positive Energy Across Myanmar",
-  description: "Share and read uplifting messages from peers across Myanmar's 15 regions. A bilingual platform spreading positive energy and community support through blockchain on Base.",
+  description:
+    "Share and read uplifting messages from peers across Myanmar's 15 regions. A bilingual platform spreading positive energy and community support through blockchain on Base.",
   keywords: [
     "Myanmar",
     "positive messages",
@@ -33,37 +35,39 @@ export const metadata: Metadata = {
     "positive energy",
     "မြန်မာ",
     "regional connection",
-    "uplifting platform"
+    "uplifting platform",
   ],
   authors: [{ name: "Myanmar Pyi Team" }],
   creator: "Myanmar Pyi",
   publisher: "Myanmar Pyi",
-  metadataBase: new URL('https://myanmarpyi.vercel.app/'),
+  metadataBase: new URL("https://myanmarpyi.vercel.app/"),
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
   openGraph: {
     title: "Myanmar Pyi - Spread Positive Energy Across Myanmar",
-    description: "Share and read uplifting messages from peers across Myanmar's 15 regions. Spreading positive energy through community support.",
-    url: 'https://myanmarpyi.vercel.app/',
-    siteName: 'Myanmar Pyi',
+    description:
+      "Share and read uplifting messages from peers across Myanmar's 15 regions. Spreading positive energy through community support.",
+    url: "https://myanmarpyi.vercel.app/",
+    siteName: "Myanmar Pyi",
     images: [
       {
-        url: '/og-image.png',
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: 'Myanmar Pyi - Community Platform',
+        alt: "Myanmar Pyi - Community Platform",
       },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: "Myanmar Pyi - Spread Positive Energy",
-    description: "Share and read uplifting messages from peers across Myanmar's 15 regions",
-    images: ['/og-image.png'],
-    creator: '@myanmarpyi',
+    description:
+      "Share and read uplifting messages from peers across Myanmar's 15 regions",
+    images: ["/og-image.png"],
+    creator: "@myanmarpyi",
   },
   robots: {
     index: true,
@@ -71,9 +75,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   verification: {
@@ -81,14 +85,14 @@ export const metadata: Metadata = {
     // google: 'your-google-verification-code',
     // yandex: 'your-yandex-verification-code',
   },
-  category: 'technology',
+  category: "technology",
 };
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const initialState = cookieToInitialState(
     getConfig(),
-    (await headers()).get('cookie'),
-  )
+    (await headers()).get("cookie")
+  );
   return (
     <html lang="en">
       <head>
@@ -106,7 +110,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ErudaProvider />
-        <Providers initialState={initialState}>{props.children}</Providers>
+        <Providers initialState={initialState}>
+          {props.children} <Analytics />
+        </Providers>
       </body>
     </html>
   );
