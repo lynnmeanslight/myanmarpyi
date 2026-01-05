@@ -30,4 +30,9 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent map scroll from affecting page scroll */
+.myanmar-map-container {
+  overscroll-behavior: contain;
+}
+
 /* Removed excessive animations for a calmer experience */

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { REGIONS, MAP_CONFIG, Region } from "../data/regions";
 
 // Map region color classes to badge gradient colors
@@ -174,10 +174,30 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     const delta = e.deltaY * -0.001;
     const newScale = Math.min(Math.max(0.5, scale + delta), 3);
     setScale(newScale);
   };
+
+  // Add wheel event listener with passive: false to prevent default scroll
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const wheelHandler = (e: WheelEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const delta = e.deltaY * -0.001;
+      setScale((prevScale) => Math.min(Math.max(0.5, prevScale + delta), 3));
+    };
+
+    container.addEventListener('wheel', wheelHandler, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', wheelHandler);
+    };
+  }, []);
 
   return (
     <div 
@@ -187,11 +207,16 @@ export const MyanmarMap: React.FC<MyanmarMapProps> = ({
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      onWheel={handleWheel}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      style={{ overflow: 'hidden', position: 'relative', touchAction: 'none' }}
+      style={{ 
+        overflow: 'hidden', 
+        position: 'relative', 
+        touchAction: 'none', 
+        isolation: 'isolate',
+        overscrollBehavior: 'contain'
+      }}
     >
       <svg
         viewBox={MAP_CONFIG.viewBox}
